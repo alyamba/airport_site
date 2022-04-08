@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>
+
+</h1>
+
+<p> <h1>Ближайшие рейсы</h1>
+    {% if next_airport_flights %}
+        {% for a in next_airport_flights %}
+        <a href="{% url 'airport:flight_detail' a.id  %}">
+            {{a.route}}
+            {{a.departure_time }}
+            <br>
+        <hr>
+        </a>
+        {% endfor %}
+    {% else %}
+        Рейсов нет
+    {% endif %}
+    </p>
+
+{% endblock %}

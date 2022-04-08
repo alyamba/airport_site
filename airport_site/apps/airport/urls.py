@@ -2,7 +2,9 @@ from django.urls import path
 
 from .views import *
 
+app_name = 'airport'
+
 urlpatterns = [
     path('', index, name='home'),
-    path('flights/<int:flight_id>', flights, name='flight_id'),
+    path('<int:flight_id>', flight_detail, name='flight_detail'),
 ]
