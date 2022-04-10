@@ -18,3 +18,8 @@ def flight_detail(request, flight_id):
 
 def error_404(request, exception):
     return HttpResponseNotFound('Страница не найдена')
+
+def register(request):
+    hi = 'hi'
+    return HttpResponse(hi)
+

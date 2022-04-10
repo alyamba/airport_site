@@ -1,8 +1,55 @@
-html, body {
-    font-family: 'Roboto';
+.background {
+    position: absolute;
+    z-index: -1;
     margin: 0;
     padding: 0;
     height: 100%;
     width: 100%;
-    background-color: lavender;
+    background-image: url("../images/oblako.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    filter: blur(3px);
+    opacity: 40%;
 }
+.list-title:hover{
+    text-decoration: underline;
+}
+
+.list{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    list-style: none;
+    font-size: 120%;
+    font-weight: bold;
+}
+
+.menu {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 16px 0px;
+}
+
+.title-body-first-page{
+    justify-content: center;
+    display: flex;
+
+}
+
+html, body {
+    font-family: 'Roboto';
+    color: #030f35;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+ul {
+    margin: 0
+}
+

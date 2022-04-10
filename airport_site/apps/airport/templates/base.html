@@ -7,18 +7,20 @@
     <link type="text/css" href="{% static 'airport/css/styles.css' %}" rel="stylesheet" />
 </head>
 <body>
-{% block mainmenu %}
-<ul>
-{% for m in menu %}
-    <li>
-    {{ m }}
-    </li>
-{% endfor %}
+    <div class="background" ></div>
+    {% block mainmenu %}
+        <div class="menu" >
+        <ul class="list">
+            {% for m in menu %}
+                <li class="list-title">
+                {{ m }}
+                </li>
+            {% endfor %}
+        </ul>
+        </div>
+    {% endblock mainmenu %}
 
-</ul>
-{% endblock mainmenu %}
-
-{% block content %}
-{% endblock %}
+    {% block content %}
+    {% endblock %}
 </body>
 </html>
