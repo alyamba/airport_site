@@ -40,6 +40,28 @@
 
 }
 
+.table-header-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.table-header {
+    display: flex;
+    flex: 1;
+    border: 1px solid black;
+}
+
+.table-row-container{
+    display: flex;
+    flex-direction: row;
+    border: 1px solid black;
+}
+
+.table-row {
+    display: flex;
+    flex: 1
+}
+
 html, body {
     font-family: 'Roboto';
     color: #030f35;
