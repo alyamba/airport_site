@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Flight(models.Model):
     route = models.CharField('Название рейса', max_length=30)
     departure_time = models.DateTimeField('Дата и время рейса')
@@ -10,6 +11,7 @@ class Flight(models.Model):
     class Meta:
         verbose_name = 'Рейс'
         verbose_name_plural = 'Рейсы'
+        ordering = ['route']
 
 
 class User(models.Model):
@@ -19,11 +21,13 @@ class User(models.Model):
     user_mail = models.EmailField('Электронная почта', max_length=50)
 
     def __str__(self):
-        return self.user_mail
+        return self.user_surname + " " + self.user_name + " " + self.user_mail
 
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
+        ordering = ['user_surname']
+
 
 class Ticket(models.Model):
     flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
