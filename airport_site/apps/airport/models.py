@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Flight(models.Model):
     route = models.CharField('Название рейса', max_length=30)
     departure_time = models.DateTimeField('Дата и время рейса')

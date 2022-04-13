@@ -1,31 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>
+    <h1>
 
-</h1>
+    </h1>
 
-<p id="flights"> <h1 class="title-body-first-page">Ближайшие рейсы</h1>
+    <p id="flights"> <h1 class="title-body-first-page">Ближайшие рейсы</h1>
     {% if next_airport_flights %}
-        <div class="table-header-container" />
-{#    table-header-container: { display: flex; flex-direction: row; }    #}
-        <div class="table-header">Рейс</div>
-{#    table-header: { display: flex; flex: 1; border: 1px solid black }    #}
-        <div class="table-header">Время отправления</div>
+        <div class="table-header-container">
+            <div class="table-header">Рейс</div>
+            <div class="table-header">Время отправления</div>
+        </div>
         {% for a in next_airport_flights %}
-        <a class="table-row-container" href="{% url 'airport:flight_detail' a.id  %}">
-{#    table-row-container: { display: flex; flex-direction: row; border: ... }    #}
-            <p class="table-row">
-{#      table-row { display: flex; flex: 1 }          #}
-            {{a.route}}
-            </p>
-            <hr>
-            <p class="table-row">
-            {{a.departure_time }}
-            </p>
-            <br>
-
-        </a>
+            <a class="table-row-container" href="{% url 'airport:flight_detail' a.id %}">
+                <p class="table-row">
+                    {{ a.route }}
+                </p>
+                <hr>
+                <p class="table-row">
+                    {{ a.departure_time }}
+                </p>
+                <br>
+            </a>
         {% endfor %}
     {% else %}
         Рейсов нет

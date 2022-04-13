@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 href="{% url 'airport:buy_ticket' %}">
+        {{ flight.route }}
+
+    </h1>
+
+
+{% endblock %}
