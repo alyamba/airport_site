@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>
+<h1 class="title-buy-ticket">
     {{ title }}
 </h1>
 
-<form action="{{ buy_ticket }}" method="post">
+<form action="{{ buy_ticket }}" method="post" class="list-buy-ticket">
     {% csrf_token %}
 
     {{ form.as_p }}

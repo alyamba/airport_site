@@ -5,7 +5,7 @@ from .views import *
 app_name = 'airport'
 
 urlpatterns = [
-    path('', index, name='home'),
+    path('', FlightHome.as_view(), name='home'),
     path('<int:flight_id>', flight_detail, name='flight_detail'),
     path('register/', register, name='register'),
     path('about/', about, name='about'),

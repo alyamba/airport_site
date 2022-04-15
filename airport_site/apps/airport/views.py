@@ -5,6 +5,7 @@ from django.http import HttpResponse, HttpResponseNotFound, Http404
 from .models import *
 from .urls import *
 from .forms import *
+from django.views.generic import ListView, DetailView
 
 menu = [{'title': 'О сайте', 'url_name': 'about'},
         {'title': 'Купить билет', 'url_name': 'buy_ticket'},
@@ -12,15 +13,30 @@ menu = [{'title': 'О сайте', 'url_name': 'about'},
         ]
 
 
-def index(request):
-    next_airport_flights = Flight.objects.order_by('-departure_time')[:5]
+class FlightHome(ListView):
+    model = Flight
+    template_name = 'airport/index.html'
+    context_object_name = 'next_airport_flights'
 
-    context = {
-        'next_airport_flights': next_airport_flights,
-        'title': 'Главная страница',
-        'menu': menu,
-    }
-    return render(request, 'airport/index.html', context=context)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['title'] = 'Главная страница'
+        return context
+
+    def get_queryset(self):
+        return Flight.objects.order_by('departure_time')[:5]
+
+
+# def index(request):
+#     next_airport_flights = Flight.objects.order_by('-departure_time')[:5]
+#
+#     context = {
+#         'next_airport_flights': next_airport_flights,
+#         'title': 'Главная страница',
+#         'menu': menu,
+#     }
+#     return render(request, 'airport/index.html', context=context)
 
 
 def flight_detail(request, flight_id):
@@ -32,6 +48,7 @@ def flight_detail(request, flight_id):
 
     context = {
         'flight': a,
+        'menu': menu,
     }
     return render(request, 'airport/flight_details.html', context=context)
 

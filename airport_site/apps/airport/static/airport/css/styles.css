@@ -63,6 +63,15 @@
     flex: 1
 }
 
+.title-buy-ticket{
+    text-align: center;
+}
+
+.list-buy-ticket{
+    padding-left: 33%;
+    
+}
+
 html, body {
     font-family: 'Roboto';
     color: #030f35;
