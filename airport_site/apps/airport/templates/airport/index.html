@@ -11,14 +11,14 @@
             <div class="table-header">Рейс</div>
             <div class="table-header">Время отправления</div>
         </div>
-        {% for a in next_airport_flights %}
-            <a class="table-row-container" href="{% url 'airport:flight_detail' a.id %}">
+        {% for flight in next_airport_flights %}
+            <a class="table-row-container" href="{% url 'airport:flight_detail' flight.slug %}">
                 <p class="table-row">
-                    {{ a.route }}
+                    {{ flight.route }}
                 </p>
                 <hr>
                 <p class="table-row">
-                    {{ a.departure_time }}
+                    {{ flight.departure_time }}
                 </p>
                 <br>
             </a>

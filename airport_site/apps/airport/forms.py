@@ -1,6 +1,7 @@
 from django import forms
 from .models import *
 
+
 class BuyTicketForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

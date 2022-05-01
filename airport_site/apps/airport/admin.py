@@ -7,6 +7,7 @@ class FlightAdmin(admin.ModelAdmin):
     list_display_links = ('route', )
     search_fields = ('route', )
     list_filter = ('departure_time', 'route')
+    prepopulated_fields = {"slug": ("route", )}
 
 # class TicketAdmin(admin.ModelAdmin):
 #     list_display = ('id', 'Flight.route')

@@ -16,6 +16,8 @@
                <li>{{m.title}}</li>
                 </a>
             {% endfor %}
+            <li><a href="{% url 'airport:register' %}">Регистрация</a> |
+            <a href="{% url 'airport:login' %}">Войти</a></li>
         </ul>
         </div>
     {% endblock mainmenu %}

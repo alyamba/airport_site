@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1 href="{% url 'airport:buy_ticket' %}">
+    <h1>
         {{ flight.route }}
-
     </h1>
+    <div>Время отправления: {{ flight.departure_time }}</div>
+    <div>Время прибытия: {{ flight.arrival_time }}</div>
+    <div>{{ route_info }}</div>
+
+    <input type="button" onclick="history.back();" value="Выход"/>
 
 
 {% endblock %}
