@@ -4,25 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ title }}</title>
-    <link type="text/css" href="{% static 'airport/css/styles.css' %}" rel="stylesheet" />
+    <link type="text/css" href="{% static 'airport/css/styles.css' %}" rel="stylesheet"/>
 </head>
 <body>
-    <div class="background" ></div>
-    {% block mainmenu %}
-        <div class="menu" >
+<div class="background"></div>
+{% block mainmenu %}
+    <div class="menu">
         <ul class="list">
             {% for m in menu %}
-                <a href="{{ m.url_name }}">
-               <li>{{m.title}}</li>
+                <a class="text-list" href="{{ m.url_name }}">
+                    <li>{{ m.title }}</li>
                 </a>
             {% endfor %}
-            <li><a href="{% url 'airport:register' %}">Регистрация</a> |
-            <a href="{% url 'airport:login' %}">Войти</a></li>
+            {% if request.user.is_authenticated %}
+                <li class="last">{{ user.user_name }} | <a class="text-list" href="{% url 'airport:logout' %}">Выйти</a>
+                </li>
+            {% else %}
+                <li><a class="text-list" href="{% url 'airport:register' %}">Регистрация</a> |
+                    <a class="text-list" href="{% url 'airport:login' %}">Войти</a></li>
+            {% endif %}
         </ul>
-        </div>
-    {% endblock mainmenu %}
+    </div>
+{% endblock mainmenu %}
 
-    {% block content %}
-    {% endblock %}
+{% block content %}
+{% endblock %}
 </body>
 </html>

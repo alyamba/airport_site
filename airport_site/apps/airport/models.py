@@ -22,7 +22,7 @@ class Flight(models.Model):
         return reverse('flight', kwargs={'flight_slug': self.slug})
 
 
-class User(models.Model):
+class MyUser(models.Model):
     user_surname = models.CharField('Фамилия', max_length=25)
     user_name = models.CharField('Имя', max_length=25)
     user_patronymic = models.CharField('Отчество', max_length=25)
@@ -39,7 +39,7 @@ class User(models.Model):
 
 class Ticket(models.Model):
     flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
     ticket_time_buy = models.DateTimeField('Время покупки', auto_now_add=True)
 
     def __str__(self):

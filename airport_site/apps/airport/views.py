@@ -1,4 +1,8 @@
 import datetime
+
+from django.contrib.auth import logout
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.urls import reverse_lazy
@@ -10,10 +14,6 @@ from django.views.generic import ListView, DetailView, CreateView
 from .utils import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-# menu = [{'title': 'О сайте', 'url_name': 'about'},
-#         {'title': 'Купить билет', 'url_name': 'buy_ticket'},
-#         ]
-
 
 class FlightHome(DataMixin, ListView):
     model = Flight
@@ -22,10 +22,7 @@ class FlightHome(DataMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        # context['menu'] = menu
-        # context['title'] = 'Главная страница'
         c_def = self.get_user_context(title='Главная страница')
-        # context = dict(list(context.items())+list(c_def.items()))
         return context | c_def
 
     def get_queryset(self):
@@ -51,17 +48,12 @@ def error_404(request, exception):
     return HttpResponseNotFound('Страница не найдена')
 
 
-def register(request):
-    hi = 'hi'
-    return HttpResponse(hi)
-
 
 def about(request):
     context = {
         'menu': menu,
     }
     return render(request, 'airport/about.html', context=context)
-    # return HttpResponse('О сайте')
 
 
 class BuyTicket(LoginRequiredMixin, DataMixin, CreateView):
@@ -70,45 +62,40 @@ class BuyTicket(LoginRequiredMixin, DataMixin, CreateView):
     success_url = reverse_lazy('airport:home')
     login_url = reverse_lazy('airport:home')  #если не авторизован, перенаправляет по ссылке
 
-    # BuyTicketForm.data.ticket_time_buy = datetime.datetime.now()
-    # BuyTicketForm.data.save()
-
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title='Купить билет')
         return context | c_def
 
 
-    # def form_valid(self, request, form):
-    #     if request.method == "POST":
-    #         form = BuyTicketForm(request.POST)
-    #         if form.is_valid():
-    #             data = form.save(commit=False)
-    #             data.ticket_time_buy = datetime.datetime.now()
-    #             data.save()
-    #             return redirect('/airport/')
-    #     else:
-    #         form = BuyTicketForm()
-    #     return render(request, 'airport/buy_ticket.html', {'form': form})
-
-# def buy_ticket(request):
-#     if request.method == "POST":
-#         form = BuyTicketForm(request.POST)
-#         if form.is_valid():
-#             data = form.save(commit=False)
-#             data.ticket_time_buy = datetime.datetime.now()
-#             data.save()
-#             return redirect('/airport/')
-#     else:
-#         form = BuyTicketForm()
-#     return render(request, 'airport/buy_ticket.html', {'form': form, 'menu': menu, 'title': 'Купить билет'})
+# def login(request):
+#     return HttpResponse('Войти')
 
 
-def login(request):
-    return HttpResponse('Войти')
+class RegisterUser(DataMixin, CreateView):
+    form_class = RegisterUserForm
+    template_name = 'airport/register.html'
+    success_url = reverse_lazy('airport:login')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Регистрация')
+        return context | c_def
 
 
-# class RegisterUser(DataMixin, CreateView):
-#     form_class = UserCreateForm
-#     template_name = 'airport/register.html'
-#     success_url = reserve_lazy('login')
+class LoginUser(DataMixin, LoginView):
+    form_class = LoginUserForm
+    template_name = 'airport/login.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Авторизация')
+        return context | c_def
+
+    def get_success_url(self):
+        return reverse_lazy('airport:home')
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('airport:login')
