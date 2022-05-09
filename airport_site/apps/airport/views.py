@@ -48,11 +48,18 @@ def error_404(request, exception):
     return HttpResponseNotFound('Страница не найдена')
 
 
-
 def about(request):
     context = {
         'menu': menu,
     }
+    print(request.environ.get('HTTP_REFERER'))
+    referer_url = request.environ.get('HTTP_REFERER')
+    print(referer_url)
+    url_array = referer_url.rsplit('/')
+    print(url_array)
+    # last_url = url_array[url_array.size - 1]
+    # print(last_url)
+
     return render(request, 'airport/about.html', context=context)
 
 
@@ -60,7 +67,7 @@ class BuyTicket(LoginRequiredMixin, DataMixin, CreateView):
     form_class = BuyTicketForm
     template_name = 'airport/buy_ticket.html'
     success_url = reverse_lazy('airport:home')
-    login_url = reverse_lazy('airport:home')  #если не авторизован, перенаправляет по ссылке
+    login_url = reverse_lazy('airport:home')  # если не авторизован, перенаправляет по ссылке
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -98,4 +105,4 @@ class LoginUser(DataMixin, LoginView):
 
 def logout_user(request):
     logout(request)
-    return redirect('airport:login')
+    return redirect('airport:home')

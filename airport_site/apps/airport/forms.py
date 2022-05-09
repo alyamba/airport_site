@@ -12,8 +12,6 @@ class BuyTicketForm(forms.ModelForm):
         self.fields['user'].empty_label = "Пассажир не выбран"
         self.fields['flight'].label = "Рейс"
         self.fields['user'].label = "Пассажир"
-        # self.fields['ticket_time_buy'].label = "Время покупки"
-        # self.ticket_time_buy = timezome.now()
 
     class Meta:
         model = Ticket
@@ -21,18 +19,18 @@ class BuyTicketForm(forms.ModelForm):
 
 
 class RegisterUserForm(UserCreationForm):
-    user_surname = forms.CharField(label='Фамилия', widget=forms.TextInput(attrs={'class': 'form-input'}))
-    user_name = forms.CharField(label='Имя',  widget=forms.TextInput(attrs={'class': 'form-input'}))
-    user_patronymic = forms.CharField(label='Отчество',  widget=forms.TextInput(attrs={'class': 'form-input'}))
-    user_mail = forms.EmailField(label='Электронная почта',  widget=forms.EmailInput(attrs={'class': 'form-input'}))
-    password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
-    password2 = forms.CharField(label='Повтор пароля', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Имя'}))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Фамилия'}))
+    email = forms.EmailField(widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Email'}))
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Логин'}))
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-input', 'placeholder': 'Пароль'}))
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-input', 'placeholder': 'Повтор пароля'}))
 
     class Meta:
         model = User
-        fields = ('user_surname', 'user_name', 'user_patronymic', 'user_mail', 'password1', 'password2')
+        fields = ('first_name', 'last_name', 'email', 'username', 'password1', 'password2')
 
 
 class LoginUserForm(AuthenticationForm):
-    user_mail = forms.EmailField(label='Электронная почта',  widget=forms.EmailInput(attrs={'class': 'form-input'}))
-    password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Логин'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-input', 'placeholder': 'Пароль'}))

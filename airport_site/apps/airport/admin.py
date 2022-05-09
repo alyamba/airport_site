@@ -10,13 +10,7 @@ class FlightAdmin(admin.ModelAdmin):
     list_filter = ('departure_time', 'route')
     prepopulated_fields = {"slug": ("route", )}
 
-# class TicketAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'Flight.route')
-#     list_display_links = ('id', )
-#     search_fields = ('route', )
-
 
 admin.site.register(Flight, FlightAdmin)
-admin.site.register(MyUser)
 admin.site.register(Ticket)
 

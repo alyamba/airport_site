@@ -1,6 +1,6 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
-from django.utils.text import slugify
 
 
 class Flight(models.Model):
@@ -22,30 +22,14 @@ class Flight(models.Model):
         return reverse('flight', kwargs={'flight_slug': self.slug})
 
 
-class MyUser(models.Model):
-    user_surname = models.CharField('Фамилия', max_length=25)
-    user_name = models.CharField('Имя', max_length=25)
-    user_patronymic = models.CharField('Отчество', max_length=25)
-    user_mail = models.EmailField('Электронная почта', max_length=50)
-
-    def __str__(self):
-        return self.user_surname + " " + self.user_name + " " + self.user_mail
-
-    class Meta:
-        verbose_name = 'Пользователь'
-        verbose_name_plural = 'Пользователи'
-        ordering = ['user_surname']
-
-
 class Ticket(models.Model):
     flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
-    user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     ticket_time_buy = models.DateTimeField('Время покупки', auto_now_add=True)
 
     def __str__(self):
-        return self.user.user_mail + ' | ' + self.flight.route + ' | ' + str(self.ticket_time_buy)
+        return self.user.username + ' | ' + self.flight.route + ' | ' + str(self.ticket_time_buy)
 
     class Meta:
         verbose_name = 'Билет'
         verbose_name_plural = 'Билеты'
-
