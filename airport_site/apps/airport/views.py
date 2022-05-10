@@ -1,6 +1,6 @@
 import datetime
 
-from django.contrib.auth import logout
+from django.contrib.auth import logout, login
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect, get_object_or_404
@@ -30,16 +30,12 @@ class FlightHome(DataMixin, ListView):
 
 
 def flight_detail(request, flight_slug):
+    #TODO: вывод всех данных о рейсе
     flight = get_object_or_404(Flight, slug=flight_slug)
-    # print('FLIGHT:', flight_slug)
-    # try:
-    #     a = Flight.objects.get(slug=flight_slug)
-    # except:
-    #     raise Http404("Рейс не найден")
     context = {
         'flight': flight,
         'menu': menu,
-        'title': flight.route,
+        'title': flight.departure_city + '-' + flight.arrival_city,
     }
     return render(request, 'airport/flight_details.html', context=context)
 
@@ -49,34 +45,24 @@ def error_404(request, exception):
 
 
 def about(request):
+    # TODO: добавить информацию о сайте
     context = {
         'menu': menu,
     }
-    print(request.environ.get('HTTP_REFERER'))
-    referer_url = request.environ.get('HTTP_REFERER')
-    print(referer_url)
-    url_array = referer_url.rsplit('/')
-    print(url_array)
-    # last_url = url_array[url_array.size - 1]
-    # print(last_url)
-
     return render(request, 'airport/about.html', context=context)
 
 
-class BuyTicket(LoginRequiredMixin, DataMixin, CreateView):
+class BuyTicket(DataMixin, CreateView):
     form_class = BuyTicketForm
     template_name = 'airport/buy_ticket.html'
     success_url = reverse_lazy('airport:home')
-    login_url = reverse_lazy('airport:home')  # если не авторизован, перенаправляет по ссылке
 
+    # TODO: корректное добавление билетов с сайта
+    # TODO: автоматическое добавление авторизированного пользователя в покупку билета
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title='Купить билет')
         return context | c_def
-
-
-# def login(request):
-#     return HttpResponse('Войти')
 
 
 class RegisterUser(DataMixin, CreateView):
@@ -88,6 +74,11 @@ class RegisterUser(DataMixin, CreateView):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title='Регистрация')
         return context | c_def
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('airport:home')
 
 
 class LoginUser(DataMixin, LoginView):
@@ -106,3 +97,23 @@ class LoginUser(DataMixin, LoginView):
 def logout_user(request):
     logout(request)
     return redirect('airport:home')
+
+
+class Tickets(DataMixin, ListView):
+    model = Ticket
+    template_name = 'airport/tickets.html'
+    context_object_name = 'my_ticket'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Ваши билеты')
+        return context | c_def
+
+    def get_queryset(self):
+        user_id = self.request.user
+        ticket = Ticket.objects.filter(user=user_id)
+        print(user_id.tickets.all())
+        print('*************************')
+        print(Flight.objects.filter())
+        return user_id.tickets.all()
+    # TODO: корректный вывод всех билетов

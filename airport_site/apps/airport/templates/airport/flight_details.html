@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>
-        {{ flight.route }}
+    <h1 class="title-body">
+        {{ flight.departure_city }} - {{ flight.arrival_city }}
     </h1>
     <div>Время отправления: {{ flight.departure_time }}</div>
     <div>Время прибытия: {{ flight.arrival_time }}</div>

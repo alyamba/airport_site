@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 href="{% url 'airport:tickets' %}">
+        {{ title }}
+</h1>
+
+    {% if my_ticket %}
+        <div>
+
+            {% for ticket in my_ticket %}
+                <p>
+                    {{ ticket }}
+                </p>
+            {% endfor %}
+
+        </div>
+     {% else %}
+        Билетов нет
+    {% endif %}
+
+{% endblock %}

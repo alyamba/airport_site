@@ -1,7 +1,8 @@
+from urllib import request
+
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-
 from .models import *
 
 
@@ -9,7 +10,7 @@ class BuyTicketForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['flight'].empty_label = "Рейс не выбран"
-        self.fields['user'].empty_label = "Пассажир не выбран"
+        self.fields['user'].empty_label = "Пользователь не выбран"
         self.fields['flight'].label = "Рейс"
         self.fields['user'].label = "Пассажир"
 

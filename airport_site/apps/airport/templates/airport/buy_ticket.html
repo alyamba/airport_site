@@ -5,7 +5,7 @@
     {{ title }}
 </h1>
 
-<form action="{{ buy_ticket }}" method="post" class="list-buy-ticket">
+<form action="{{ BuyTicket }}" method="POST" class="list-buy-ticket">
     {% csrf_token %}
 
     {{ form.as_p }}

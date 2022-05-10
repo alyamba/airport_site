@@ -17,8 +17,8 @@
                 </a>
             {% endfor %}
             {% if request.user.is_authenticated %}
-                <li class="last">{{ user.user_name }} | <a class="text-list" href="{% url 'airport:logout' %}">Выйти</a>
-                </li>
+                <li><a class="text-list" href="{% url 'airport:tickets' %}">Ваш профиль</a> |
+                    <a class="text-list" href="{% url 'airport:logout' %}">Выйти</a></li>
             {% else %}
                 <li><a class="text-list" href="{% url 'airport:register' %}">Регистрация</a> |
                     <a class="text-list" href="{% url 'airport:login' %}">Войти</a></li>

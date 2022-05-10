@@ -42,7 +42,7 @@
     padding: 20px 0px;
 }
 
-.title-body-first-page {
+.title-body{
     justify-content: center;
     display: flex;
 
@@ -93,3 +93,27 @@ ul {
     margin: 0;
 }
 
+.div-info{
+    text-align: center;
+    place-items: center;
+}
+
+.form-input{
+    margin-top: 20px;
+    margin-left: 20px;
+    border-radius: 20px;
+    display: flex;
+    width: 250px;
+    height: 25px;
+    box-shadow: rgba(113,113,113,0.15) -2px -2px 11px, rgba(0,0,0,0.15) 2px 2px 11px;
+    border-style: solid;
+    }
+
+.button{
+    border-radius: 10px;
+    display: flex;
+    width: 100px;
+    height: 25px;
+    box-shadow: rgba(100,100,100,0.15) -2px -2px 11px, rgba(0,0,0,0.15) 2px 2px 11px;
+    border-style: solid;
+}
