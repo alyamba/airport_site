@@ -4,6 +4,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from .models import *
+from django.forms import TextInput
 
 
 class BuyTicketForm(forms.ModelForm):
@@ -18,6 +19,9 @@ class BuyTicketForm(forms.ModelForm):
         model = Ticket
         fields = ['flight', 'user']
 
+        widgets = {
+        }
+
 
 class RegisterUserForm(UserCreationForm):
     first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Имя'}))
@@ -29,9 +33,24 @@ class RegisterUserForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'username', 'password1', 'password2')
+        fields = ['first_name', 'last_name', 'email', 'username', 'password1', 'password2']
 
 
 class LoginUserForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Логин'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-input', 'placeholder': 'Пароль'}))
+
+
+class ExpertForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['factor1'].label = "Цена билета"
+        self.fields['factor2'].label = "Качество перелета"
+        self.fields['factor3'].label = "Состояние самолёта"
+        self.fields['factor4'].label = "Разнообразие рейсов"
+        self.fields['factor5'].label = "Работа сайта"
+
+    class Meta:
+        model = Expert
+        fields = ['factor1', 'factor2', 'factor3', 'factor4', 'factor5', 'user']
+

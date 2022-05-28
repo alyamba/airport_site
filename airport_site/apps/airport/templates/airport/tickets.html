@@ -1,22 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1 href="{% url 'airport:tickets' %}">
+<h1 href="{% url 'airport:tickets' %}" class="title">
         {{ title }}
 </h1>
-
-    {% if my_ticket %}
-        <div>
-
-            {% for ticket in my_ticket %}
-                <p>
-                    {{ ticket }}
-                </p>
-            {% endfor %}
-
-        </div>
-     {% else %}
-        Билетов нет
-    {% endif %}
-
+{% if tickets %}
+    <div>
+        {% for ticket in tickets %}
+            <p class="ticket">
+                <br> {{ ticket.flight.departure_city }}-{{ ticket.flight.arrival_city }}
+                <br> Отправление: {{ ticket.flight.departure_time }}
+                <br> Прибытие: {{ ticket.flight.arrival_time }}
+                <br> Время покупки: {{ ticket.ticket_time_buy }}
+                <br> Цена: {{ ticket.flight.price }}$
+            </p>
+        {% endfor %}
+    </div>
+ {% else %}
+    Билетов нет
+{% endif %}
+    <a class="button-exit" href="{% url 'airport:home' %}">Выход<a/>
 {% endblock %}

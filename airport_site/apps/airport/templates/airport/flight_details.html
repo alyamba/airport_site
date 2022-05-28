@@ -1,14 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1 class="title-body">
+    <h1 class="title">
         {{ flight.departure_city }} - {{ flight.arrival_city }}
     </h1>
-    <div>Время отправления: {{ flight.departure_time }}</div>
-    <div>Время прибытия: {{ flight.arrival_time }}</div>
-    <div>{{ route_info }}</div>
+    <div class="flight-info">
+        <p><br>Время отправления: {{ flight.departure_time }}
+        <br>Время прибытия: {{ flight.arrival_time }}</p>
+        <p><br> {{ flight.route_info }}</p>
+        <p id="price"><br> Цена: {{ flight.price }}$ </p>
 
-    <input type="button" onclick="history.back();" value="Выход"/>
 
+    <br>
 
+    </div>
+    <a class="button-exit" href="{% url 'airport:home' %}">Выход</a>
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1 class="title-body">{{ title }}</h1>
+<h1 class="title-body" id="login">{{ title }}</h1>
 
     <div class="div-info">
         <form method="post">
@@ -12,7 +12,10 @@
                 </p>
             <div class="form-error">{{ f.errors }}</div>
             {% endfor %}
-            <button class="button" type="submit">Регистрация</button>
+            <div class="button-container">
+                <button class="button" type="submit">Регистрация</button>
+            </div>
+
         </form>
     </div>
 {% endblock %}

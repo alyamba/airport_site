@@ -4,24 +4,26 @@
     <h1 class="title">
         {{ title }}
     </h1>
-
-    <form action="{{ BuyTicket }}" method="POST" class="list-buy-ticket">
+    <div class="expert-info">1 - наиболее важный фактор
+        <br>5 - наименее важный фактор
+        <br>Оценки не должны повторяться!
+    </div>
+    <form action="" method="POST" >
         {% csrf_token %}
-
         {% for p in form %}
-            {% if p.label == "Пассажир"%}
+            {% if p.label == "User" %}
                 <div hidden>{{ p }}</div>
             {% else %}
                 <p >
                     <label for="{{ p.id_for_label }}">
-                     {{ p.label }}: {{ p }}
+                        {{ p.label }}: {{ p }}
                     </label>
                 </p>
                 <div>{{ p.errors }}</div>
             {% endif %}
         {% endfor %}
         <input class="button" type="submit" onclick="history.back();" value="Добавить"/>
-        <br><a class="button-exit" href="{% url 'airport:home' %}">Выход</a>
+        <a class="button-exit" href="{% url 'airport:home' %}">Выход</a>
     </form>
 
 {% endblock %}

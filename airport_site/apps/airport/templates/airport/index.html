@@ -2,26 +2,32 @@
 
 {% block content %}
     <p id="flights"> <h1 class="title-body">Ближайшие рейсы</h1>
-    {% if next_airport_flights %}
-        <div class="table-header-container">
-            <div class="table-header">Рейс</div>
-            <div class="table-header">Время отправления</div>
-        </div>
-        {% for flight in next_airport_flights %}
-            <a class="table-row-container" href="{% url 'airport:flight_detail' flight.slug %}">
-                <p class="table-row">
-                    {{ flight.departure_city }} - {{ flight.departure_city }}
-                </p>
-                <hr>
-                <p class="table-row">
-                    {{ flight.departure_time }}
-                </p>
-                <br>
-            </a>
-        {% endfor %}
-    {% else %}
-        Рейсов нет
-    {% endif %}
+    <div class="screen-table-container">
+        {% if next_airport_flights %}
+            <div class="table-header-container">
+                <div class="table-header">Рейс</div>
+                <div class="table-header">Время вылета и прилёта</div>
+            </div>
+            <div class="table-container">
+                {% for flight in next_airport_flights %}
+                    <a class="table-row-container" href="{% url 'airport:flight_detail' flight.slug %}">
+                        <p class="table-row">
+                            {{ flight.departure_city }} - {{ flight.arrival_city }}
+                        </p>
+                        <div id="table-row-separator"></div>
+                        <p class="table-row">
+                            {{ flight.departure_time }} - {{ flight.arrival_time }}
+                        </p>
+                        <br>
+                    </a>
+                {% endfor %}
+                <div id="last-table-row"></div>
+            </div>
+
+        {% else %}
+            <div class="information"> В данный момент рейсов нет</div>
+        {% endif %}
+    </div>
     </p>
 
 {% endblock %}

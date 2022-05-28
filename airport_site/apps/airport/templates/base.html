@@ -2,32 +2,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css"
+          integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+            integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+
     <meta charset="UTF-8">
     <title>{{ title }}</title>
+    <link rel="shortcut icon" type="image/ico" href="{% static 'airport/images/ticket-flight.ico' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200&display=swap"
+          rel="stylesheet">
     <link type="text/css" href="{% static 'airport/css/styles.css' %}" rel="stylesheet"/>
 </head>
 <body>
-<div class="background"></div>
-{% block mainmenu %}
-    <div class="menu">
-        <ul class="list">
-            {% for m in menu %}
-                <a class="text-list" href="{{ m.url_name }}">
-                    <li>{{ m.title }}</li>
-                </a>
-            {% endfor %}
-            {% if request.user.is_authenticated %}
-                <li><a class="text-list" href="{% url 'airport:tickets' %}">Ваш профиль</a> |
-                    <a class="text-list" href="{% url 'airport:logout' %}">Выйти</a></li>
-            {% else %}
-                <li><a class="text-list" href="{% url 'airport:register' %}">Регистрация</a> |
-                    <a class="text-list" href="{% url 'airport:login' %}">Войти</a></li>
-            {% endif %}
-        </ul>
-    </div>
-{% endblock mainmenu %}
+    <div class="background"></div>
+    {% block mainmenu %}
+        <div class="menu">
+            <ul class="list">
+                {% for m in menu %}
+                    <a class="text-list" href="{{ m.url_name }}">
+                        <li>{{ m.title }}</li>
+                    </a>
+                {% endfor %}
+                {% if request.user.is_authenticated %}
+                    <li>
+                        <a class="text-list" href="{% url 'airport:tickets' %}">Ваш профиль</a> |
+                        <a class="text-list" href="{% url 'airport:logout' %}">Выйти</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a class="text-list" href="{% url 'airport:register' %}">Регистрация</a> |
+                        <a class="text-list" href="{% url 'airport:login' %}">Войти</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    {% endblock mainmenu %}
 
-{% block content %}
-{% endblock %}
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
 </body>
 </html>

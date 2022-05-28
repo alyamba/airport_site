@@ -4,6 +4,7 @@ from django.urls import reverse
 from datetime import datetime
 import locale
 locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class Flight(models.Model):
@@ -12,7 +13,7 @@ class Flight(models.Model):
     departure_time = models.DateTimeField('Дата и время вылета')
     arrival_time = models.DateTimeField('Дата и время рейса прилёта')
     route_info = models.TextField('Информация о рейсе')
-    price = models.DecimalField('Цена билета', max_digits=10, decimal_places=2)
+    price = models.IntegerField('Цена билета', validators=[MinValueValidator(0)])
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
 
     def __str__(self):
@@ -44,3 +45,18 @@ class Ticket(models.Model):
         verbose_name_plural = 'Билеты'
 
 #TODO: добавить экспертов
+
+
+class Expert(models.Model):
+    factor1 = models.IntegerField('Цена билета', validators=[MinValueValidator(1), MaxValueValidator(5)])
+    factor2 = models.IntegerField('Качество перелета', validators=[MinValueValidator(1), MaxValueValidator(5)])
+    factor3 = models.IntegerField('Состояние самолёта', validators=[MinValueValidator(1), MaxValueValidator(5)])
+    factor4 = models.IntegerField('Разнообразие рейсов', validators=[MinValueValidator(1), MaxValueValidator(5)])
+    factor5 = models.IntegerField('Работа сайта', validators=[MinValueValidator(1), MaxValueValidator(5)])
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='expert')
+
+    class Meta:
+        verbose_name = 'Оценка'
+        verbose_name_plural = 'Оценки'
+        unique_together = ('user', )
+

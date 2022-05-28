@@ -1,9 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1 href="{% url 'airport:about' %}">
+<h1 href="{% url 'airport:about' %}" class="title">
         {{ title }}
 </h1>
+    <div class="my-info"> Здравствуйте! Я Логунова Алина!
+        <div id="full-info"> Этот сайт является моим курсовым проектом по учебной дисциплине "Системный анализ и проектирование информационных систем".
+            Он разработан на основе принятия решений в условиях недостатка информации (метод априорного ранжирования) на примере аэропорта.
+            Сайт написан на Python с использованием фреймворка Django, а также HTML, CSS и фрагментами React.
+            <br>Исходный код можно посмотреть <a href="https://github.com/alyamba/airport_site">здесь</a>
+        </div>
+        <div id="url">
+        <a href="https://github.com/alyamba">GitHub</a> | <a href="https://www.linkedin.com/in/ideallogunova/">LinkedIn</a>
+        </div>
+    </div>
 
+    <a class="button-exit" href="{% url 'airport:home' %}">Выход</a>
 
 {% endblock %}

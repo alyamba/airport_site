@@ -19,6 +19,11 @@ class TicketAdmin(admin.ModelAdmin):
     list_filter = ('user',)
 
 
+class ExpertAdmin(admin.ModelAdmin):
+    list_display = ('id', 'factor1', 'factor2', 'factor3', 'factor4', 'factor5', 'user')
+    list_filter = ('user',)
+
+
 admin.site.register(Flight, FlightAdmin)
 admin.site.register(Ticket, TicketAdmin)
-
+admin.site.register(Expert, ExpertAdmin)
